@@ -5,13 +5,10 @@ from datetime import datetime
 from typing import Optional
 
 from sqlalchemy import (
-    Integer,
-    String,
-    Text,
-    ForeignKey,
-    Numeric,
-    TIMESTAMP,
-    func,
+    Integer, String, Text, Float,
+    ForeignKey, Numeric,
+    TIMESTAMP, func,
+    Column 
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -63,3 +60,23 @@ class NutritionRecord(Base):
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
 
     upload: Mapped["Upload"] = relationship(back_populates="nutrition")
+
+
+class ImageNetMap(Base):
+    __tablename__ = "imagenet_map"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    imagenet_label: Mapped[str] = mapped_column(String(255), unique=True, index=True)
+    food_key: Mapped[str] = mapped_column(String(100), index=True)
+
+
+class NutritionInfo(Base):
+    __tablename__ = "nutrition_info"
+
+    id = Column(Integer, primary_key=True, index=True)
+    food_key = Column(String(100), unique=True, index=True, nullable=False)
+    calories_per_100g = Column(Integer, nullable=False)
+    protein = Column(Float, nullable=False)
+    carbs = Column(Float, nullable=False)
+    fat = Column(Float, nullable=False)
+    default_serving_g = Column(Integer, nullable=False)
