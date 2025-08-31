@@ -23,7 +23,7 @@ TF_MODEL = None
 TF_DECODE = None
 IMG_SIZE = 224
 
-ALLOWED_ORIGINS = ["http://localhost:5173"]  # add your deployed UI origin later
+ALLOWED_ORIGINS = ["http://localhost:5173", "https://nutri-snap-iota.vercel.app"] 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
